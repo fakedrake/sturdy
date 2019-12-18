@@ -25,10 +25,10 @@ class (Arrow c, Profunctor c) => ArrowStore var val c | c -> var, c -> val where
   -- | Writes a value to the store.
   write :: c (var,val) ()
 
-
 -- | Simpler version of 'read'
 read' :: (Show var, Join val c, IsString e, ArrowFail e c, ArrowStore var val c) => c var val
 read' = proc var ->
   read (proc (val,_) -> returnA -< val)
        (proc var     -> fail    -< fromString $ printf "variable %s not bound" (show var))
     -< (var,var)
+{-# INLINE read' #-}
