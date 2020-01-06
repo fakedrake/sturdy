@@ -18,6 +18,7 @@ import Control.Arrow.Environment as Env
 import Control.Arrow.Closure as Cls
 import Control.Arrow.Except as Exc
 import Control.Arrow.Fail
+import Control.Arrow.Frame
 import Control.Arrow.Order
 import Control.Arrow.Primitive
 import Control.Arrow.Reader as Reader
@@ -147,6 +148,11 @@ instance (Applicative f, ArrowLetRec var val c) => ArrowLetRec var val (StaticT 
   letRec (StaticT f) = StaticT $ Env.letRec <$> f
   {-# INLINE letRec #-}
   {-# SPECIALIZE instance ArrowLetRec var val c => ArrowLetRec var val (StaticT ((->) r) c) #-}
+
+instance (Applicative f, ArrowFrame frame c) => ArrowFrame frame (StaticT f c) where
+  newFrame (StaticT f) = StaticT $ newFrame <$> f
+  {-# INLINE newFrame #-}
+  {-# SPECIALIZE instance ArrowFrame frame c => ArrowFrame frame (StaticT ((->) r) c) #-}
 
 instance (Applicative f, ArrowStore var val c) => ArrowStore var val (StaticT f c) where
   type Join y (StaticT f c) = Store.Join y c

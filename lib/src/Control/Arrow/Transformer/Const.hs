@@ -26,6 +26,7 @@ import Control.Arrow.Fix.Cache
 import Control.Arrow.Fix.Chaotic
 import Control.Arrow.Fix.Context
 import Control.Arrow.Fix.Stack
+import Control.Arrow.Frame
 import Control.Arrow.Order
 import Control.Arrow.Primitive
 import Control.Arrow.Reader
@@ -43,7 +44,7 @@ import Data.Coerce
 newtype ConstT r c x y = ConstT (StaticT ((->) r) c x y)
   deriving (Category,Profunctor,Arrow,ArrowChoice,ArrowLowerBounded,ArrowLift,ArrowJoin,ArrowPrimitive,
             ArrowState s,ArrowReader r',ArrowWriter w, ArrowLetRec var val,
-            ArrowEnv var val, ArrowClosure expr cls, ArrowStore var val,
+            ArrowFrame frame, ArrowEnv var val, ArrowClosure expr cls, ArrowStore var val,
             ArrowFail e, ArrowExcept e,
             ArrowContext ctx, ArrowStack a, ArrowCache a b, ArrowChaotic a)
 

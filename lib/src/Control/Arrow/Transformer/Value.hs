@@ -28,6 +28,7 @@ import Control.Arrow.Cont
 import Control.Arrow.Const
 import Control.Arrow.Fail
 import Control.Arrow.Fix
+import Control.Arrow.Frame
 import Control.Arrow.Trans
 import Control.Arrow.Order
 import Control.Arrow.Environment
@@ -41,7 +42,7 @@ import Data.Coerce
 
 newtype ValueT val c x y = ValueT { runValueT :: c x y }
   deriving (Profunctor,Category,Arrow,ArrowChoice, ArrowConst r,
-            ArrowEnv var val', ArrowLetRec var val', ArrowStore addr val',
+            ArrowFrame frame, ArrowEnv var val', ArrowLetRec var val', ArrowStore addr val',
             ArrowExcept exc,ArrowFail e,
             ArrowLowerBounded, ArrowReader r, ArrowState s, ArrowCont)
 
